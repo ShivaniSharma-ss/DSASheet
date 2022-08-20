@@ -7,42 +7,57 @@ return arr[k-1];
 T.C O(N*log N)
 
 M-1 Using Quick Sort
-public static int kthSmallest(int[] arr, int l, int r, int k) 
-    { 
-        //Your code here
-         int pidx=partition(arr,arr[r],l,r);
-        if(pidx==k-1){
-            return arr[pidx];
-        }else if(pidx>k-1){
-            return kthSmallest(arr,l,pidx-1,k);
-        }else{
-            return kthSmallest(arr,pidx+1,r,k);
-        }
-    } 
-    
-    public static int partition(int[] arr,int pivot,int l,int r){
-        int i=l;
-        int j=l;
+M-1 Using Sorting 
+Sort the array and return k-1 element
+Arrays.sort(arr);
+return arr[k-1];
+T.C O(N*log N)
+
+M-1 Using Quick Sort
+  private static void swap(int[] arr, int idx1, int idx2) {
         
-        while(i<=r){
-            if(arr[i]<=pivot){
-                swap(arr,i,j);
-                i++;
-                j++;
-            }else{
-                i++;
+        int temp = arr[idx1];
+        arr[idx1] = arr[idx2];
+        arr[idx2] = temp;
+    }
+    
+    private static int quickSortUtil(int[] arr, int low, int high)
+    {
+          int left = low-1;
+        int pivot = arr[high];
+         for(int right = low;right<high;right++) 
+        {
+           if(pivot >= arr[right])
+            {
+               left++;
+                swap(arr, left, right);
             }
         }
+       swap(arr, left+1, high);
+        return left+1;
+    }
+    public static int kthSmallest(int[] arr, int l, int r, int k) 
+    { 
+        //Your code here
+        if(l <= r) 
+        {
+            
+            int pivot = quickSortUtil(arr, l, r);
+            
+            if(pivot == k-1)
+                return arr[pivot];
+                
+            if(pivot < k-1)
+                return kthSmallest(arr, pivot+1, r, k);
+                
+            else
+                return kthSmallest(arr, l, pivot-1, k);
+        }
         
-        return j-1;
-    
-    }
-    
-    public static void swap(int[] arr,int i,int j){
-        int temp=arr[i];
-        arr[i]=arr[j];
-        arr[j]=temp;
-    }
+        return -1;
+    } 
+}
+
 
 Max Heap: It says that biggest element will be pop out first.In C++ by default there is max heap.But in java bydefault there is mean Heap.So here elements will be like 5,10,15.
 If we want to convert it into maxheap we will have to use 
