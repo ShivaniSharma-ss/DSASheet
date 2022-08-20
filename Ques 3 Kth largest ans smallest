@@ -1,0 +1,91 @@
+Q.3 Find Kth Largest/Smallest element of an unsorted array
+
+M-1 Using Sorting 
+Sort the array and return k-1 element
+Arrays.sort(arr);
+return arr[k-1];
+T.C O(N*log N)
+
+M-1 Using Quick Sort
+public static int kthSmallest(int[] arr, int l, int r, int k) 
+    { 
+        //Your code here
+         int pidx=partition(arr,arr[r],l,r);
+        if(pidx==k-1){
+            return arr[pidx];
+        }else if(pidx>k-1){
+            return kthSmallest(arr,l,pidx-1,k);
+        }else{
+            return kthSmallest(arr,pidx+1,r,k);
+        }
+    } 
+    
+    public static int partition(int[] arr,int pivot,int l,int r){
+        int i=l;
+        int j=l;
+        
+        while(i<=r){
+            if(arr[i]<=pivot){
+                swap(arr,i,j);
+                i++;
+                j++;
+            }else{
+                i++;
+            }
+        }
+        
+        return j-1;
+    
+    }
+    
+    public static void swap(int[] arr,int i,int j){
+        int temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+    }
+
+Max Heap: It says that biggest element will be pop out first.In C++ by default there is max heap.But in java bydefault there is mean Heap.So here elements will be like 5,10,15.
+If we want to convert it into maxheap we will have to use 
+PriorityQueue pq=new PriorityQueue<>(Collections.reverseOrder());
+
+Kth largest
+Input: 20 10 60 30 50 40
+Output 40
+
+Method: If we make a min heap whose size will be 3 bcoz the kth position is 3 and we are inserting elements in some way like this whenever it becomes a min heap, only the top 3 elements or the last elemenets of sorted array should remain.so we can say that the topmost element from these three will be the kth largest element.so we have to just make the min heap of size k.
+
+Arrays.sort(a);
+Int kth largest(int a[],int k)
+{
+PriorityQueue<Integer>pq=new PriorityQueue<>();
+For(int i=0;i<k;i++)
+{
+Pq.add(a[i]);
+}
+For (int i=k;i<a.length;i++)
+{
+If(pq.peek()<a[i])
+{
+Pq.pop();
+Pq.add(a[i]);
+}
+}
+Return pq.peek();
+}
+
+For Kth SMalllest 
+Arrays.sort(arr);
+ PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+   for(int i=0;i<k;i++)
+       {
+           pq.add(arr[i]);
+       }
+       for(int i=0;i<k;k++)
+       {
+           if(pq.peek() < arr[i])
+           {
+               pq.poll();
+               pq.add(arr[i]);
+           }
+       }
+       return pq.peek();
