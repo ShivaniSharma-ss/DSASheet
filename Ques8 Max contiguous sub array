@@ -31,7 +31,9 @@ long sum=0;
 T.C O(N*2)
 S.C O(1)
 
-#Kadane Algorithm 
+#Kadane Algorithm   
+Kadane’s Algorithm is an iterative dynamic programming algorithm.
+It calculates the maximum sum subarray ending at a particular position by using the maximum sum subarray ending at the previous position. 
 int[] arr = {-5,4,6,-3,4,-1};
  int n = arr.length; 
 int maxsum=0,currsum=0;
