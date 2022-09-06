@@ -1,0 +1,63 @@
+Input: {0, 1, 2, 0, 1, 2}
+Output: {0, 0, 1, 1, 2, 2}
+Input: {0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1}
+Output: {0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2}
+
+M-1 First We will sort the array bcoz if we sort the array all the zeroes will come first then it will be followed up with 1’s then it will be followed by 2’s.
+ Here TC will be O(n logn) and SC will be O(1).
+
+We can optimize it bys another approach i.e. countingSort
+
+M-2  We can linearly traverse the array and count no of 0’s 1’s and 2’s So once after counting we can run loop that no of times for 0’s 1’s and 2’s and insert that no of 0’s 1’s and 2’s. Here TC will be 0(N)+O(N)=O(2N)
+
+M-3 So this problem is a variation of Dutch National Flag Algorithm so in this algo we need to consider 3 pointers i.e low, mid and high.Initially we will place the low pointer at starting index, mid at start, and high at last position. So this algo is based on the fact that all the nos from 0 to low-1 are zeroes(0’s)
+While all the nos from high+1 to n will be 2.
+Means all the elements towars left side of low are 0 and all the elements towards right side of high are 2 so we will move mid pointer until and unless mid pointer crosses this high pointer so while moving we will have 3 checks .
+1)	When mid pointer is pointer to 0 : we swap a[low],a[mid] then low++, mid++
+2)	When mid pointer is pointer to 1: we simply do mid++
+3)	When mid pointer is pointer to 2: we swap a[mid],a[high]
+High --;
+
+TC: O(n)
+SC: O(1)
+
+Code:
+
+
+class Solution {
+    public void sortColors(int[] nums) {
+     int low=0;
+        int mid=0;
+        int high=nums.length-1;
+        int temp;
+        while(mid<=high)
+        {
+            
+            switch(nums[mid])
+            {
+                case 0:
+                    {
+                        temp=nums[low];
+                        nums[low]=nums[mid];
+                        nums[mid]=temp;
+                        low++;
+                        mid++;
+                        break;
+                    }
+                case 1:
+                    {
+                        mid++;
+                        break;
+                    }
+                case 2:
+                    {
+                        temp=nums[mid];
+                        nums[mid]=nums[high];
+                        nums[high]=temp;
+                        high--;
+                        break;
+                    }
+            }
+        }
+    }
+} 
