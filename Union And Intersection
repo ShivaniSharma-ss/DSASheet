@@ -1,0 +1,152 @@
+Using Set
+Set<Integer>set=new HashSet<Integer>();
+    for(int i=0;i<n;i++)
+    {
+       set.add(a[i]);
+    }
+    for(int j=0;j<m;j++)
+    {
+        set.add(b[j]);
+    }
+    return set.size();
+T.C O(m+n)
+S.C O(m+n)
+
+M-1   1) Use two index variables i and j, initial values i = 0, j = 0 
+2) If arr1[i] is smaller than arr2[j] then print arr1[i] and increment i. 
+3) If arr1[i] is greater than arr2[j] then print arr2[j] and increment j. 
+4) If both are same then print any of them and increment both i and j. 
+5) Print remaining elements of the larger array.
+
+import java.io.*;
+import java.util.*;
+class Solution{
+    public static int doUnion(int a[], int n, int b[], int m) 
+    {
+    int i=0,j=0,count=0,size=0;
+    int arr[]=new int[m+n];
+    size=arr.length;
+    while(i<n && j<m && count<size)
+    {
+        if(a[i]>b[j])
+        {
+            arr[count]=a[i];
+            count++;
+            i++;
+        }
+        else if(a[i]<b[j])
+        {
+            arr[count]=b[j];
+            count++;
+            j++;
+        }
+        else
+        {
+            arr[count]=b[j];
+            i++;
+            j++;
+            count++;
+        }
+    }
+    while(i<n)
+    {
+        arr[count]=a[i];
+        i++;
+        count++;
+    }
+    while(j<m)
+    {
+        arr[count]=b[j];
+        j++;
+        count++;
+    }
+    return count+1;
+    }
+}
+
+M-2 
+    List<Integer>res=new ArrayList<>();
+    int left=0,right=0;
+    while(left<n || right<m)
+    {
+//Duplicate
+      while(left>0 && left<n && a[left]==a[left-1])
+      {
+          left++;
+      }
+      while(right>0 && right<m && b[right]==b[right-1])
+      {
+          right++;
+      }
+//one array exhaust
+      if(left>=n)
+      {
+          res.add(b[right]);
+          right++;
+          continue;
+      }
+      if(right>=m)
+      {
+          res.add(a[left]);
+          left++;
+          continue;
+      }
+      //comparison
+      if(a[left]<b[right])
+      {
+          res.add(a[left]);
+          left++;
+      }
+      else if(a[left]>b[right])
+      {
+          res.add(b[right]);
+          right++;
+      }
+      else
+      {
+          res.add(a[left]);
+          left++;
+          right++;
+      }
+    }
+    return res.size();
+For Intersection
+
+    List<Integer>res=new ArrayList<>();
+    int left=0,right=0;
+    while(left<n || right<m)
+    {
+//Duplicate
+      while(left>0 && left<n && a[left]==a[left-1])
+      {
+          left++;
+      }
+      while(right>0 && right<m && b[right]==b[right-1])
+      {
+          right++;
+      }
+//one array exhaust
+      if(left>=n || right>=m)
+      {
+          Break;
+      }
+      //comparison
+      if(a[left]<b[right])
+      {
+          left++;
+      }
+      else if(a[left]>b[right])
+      {
+          right++;
+      }
+      else
+      {
+          res.add(a[left]);
+          left++;
+          right++;
+      }
+    }
+    return res.size();
+
+T.C O(N)
+S.C O(N)
