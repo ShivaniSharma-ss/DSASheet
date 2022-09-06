@@ -6,14 +6,9 @@ Arrays.sort(arr);
 return arr[k-1];
 T.C O(N*log N)
 
-M-1 Using Quick Sort
-M-1 Using Sorting 
-Sort the array and return k-1 element
-Arrays.sort(arr);
-return arr[k-1];
-T.C O(N*log N)
 
-M-1 Using Quick Sort
+
+M-2 Using Quick Sort
   private static void swap(int[] arr, int idx1, int idx2) {
         
         int temp = arr[idx1];
