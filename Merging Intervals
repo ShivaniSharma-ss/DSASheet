@@ -1,0 +1,41 @@
+Arrays.sort(Intervals,(a,b)->Integer.compare(a[0],b[0]));
+        Stack<int[]> stack = new Stack<>();
+        stack.push(Intervals[0]);
+        
+        for(int i=1;i<Intervals.length;i++)
+        {
+           int[] arr = new int[2];
+           arr = stack.pop();
+           int[] result= new int[2];
+           
+           int startpoint1 = arr[0];
+           int endpoint1 = arr[1];
+           int startpoint2 = Intervals[i][0];
+           int endpoint2 = Intervals[i][1];
+        
+        if(endpoint1 >= startpoint2)
+        {
+            int low = Math.min(startpoint1,startpoint2);
+            int high = Math.max(endpoint1,endpoint2);
+            result[0] = low;
+            result[1] = high;
+            stack.push(result);
+        }
+          else
+          {
+              stack.add(arr);
+              stack.add(Intervals[i]);
+          }
+        }
+        int[][] output = new int[stack.size()][2];
+          for(int j=output.length-1;j>=0;j--)
+          {
+              int[] poparr = stack.pop();
+              output[j][0] = poparr[0];
+              output[j][1] = poparr[1];
+              
+          }
+        return output;
+
+T.C O(n log n)
+S.C O(n)
